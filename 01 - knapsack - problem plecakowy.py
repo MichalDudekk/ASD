@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-# knapsack - problem plecakowy
+# 01 - knapsack - problem plecakowy
 # Dana jest tablica V zawierająca n liczb naturalnych oznaczających wartości przedmiotów
 # Dana jest tablica W zawierająca n liczb naturalnych oznaczających wagi przedmiotów
 # Dana jest liczba naturalna max_weight oznaczająca pojemność plecaka
