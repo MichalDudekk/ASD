@@ -1,0 +1,91 @@
+# knapsack - problem plecakowy
+# Dana jest tablica V zawierająca n liczb naturalnych oznaczających wartości przedmiotów
+# Dana jest tablica W zawierająca n liczb naturalnych oznaczających wagi przedmiotów
+# Dana jest liczba naturalna max_weight oznaczająca pojemność plecaka
+# Zaimplementuj algorytm, który zwraca maksymalną sumaryczną wartość przedmiotów,
+# które razem nie przekraczają pojemności plecaka.
+
+# podejście bottom-up - iteracyjne O( n * max_weight )
+def knapsack(V,W,max_weight):
+    # V - tablica wartości przedmiotów (V jak Values)
+    # W - tablica wag przedmiotów (W jak Weights)
+    # max_weight - maksymalna dopuszczalna waga
+
+    n = len(V)  # n - liczba przedmiotów
+
+    F = [[-1 for k in range(n)] for w in range( max_weight + 1 )]
+    # F[w][k] - maksywalna wartość przedmiotów z przedziału od 0 do k, wykorzystując dokłanie w wagi
+
+    # przypisanie wartości początkowych - pierwszej kolumny
+    F[0][0] = 0                 # nie bierzemy pierwszego przedmiotu
+    if W[0] <= max_weight:      # edge case - sprawdzamy czy pierwszy przedmiot nie waży wiecej niż dopuszczalna waga
+        F[ W[0] ][0] = V[0]     # bierzemy pierwszy przedmiot
+
+    # pętla obliczająca wszystkie wartości tablicy F
+    for k in range(0, n-1 ):    # każde k-te wywołanie pętli uzupełnia k+1 kolumne tablicy - dlatego pętlę nie wykonujemy
+                                # na ostatniej kolumnie, bo nie ma juz kolejnej kolumny do uzupełnienia
+        for w in range(0, max_weight+1):
+            if F[w][k] == -1:   # wartość -1 znaczy że nie da się osiągnąć dokładnie wagi w przy użyciu przedmiotów
+                                # z przedziału <0,k>
+                continue
+            F[w][k+1] = max( F[w][k+1] , F[w][k] )  # nie bierzemy kolejnego przedmiotu
+
+            new_w = W[k+1] + w                      # obliczenie wagi po dodaniu do aktualnej (w) wagi następnego przedmiotu
+            if new_w > max_weight:                  # sprawdzenie czy nowa waga nie jest wieksza od max_weight
+                continue
+            F[new_w][k+1] = max( F[new_w][k+1] ,
+                                 F[w][k] + V[k+1] ) # bierzemy kolejny przedmiot
+
+    # odczytanie rozwiązania
+    ans = 0
+    for w in range(max_weight+1):   # przejście przez ostatnią kolumnę tablicy w poszukiwaniu maksymalnej wartości
+        ans = max( ans , F[w][n-1] )
+    return ans
+
+# podejście top-down - rekurencyjne z zapamiętywaniem O( n * max_weight )
+def knapsack_recursive(V,W,max_weight):
+    # V - tablica wartości przedmiotów (V jak Values)
+    # W - tablica wag przedmiotów (W jak Weights)
+    # max_weight - maksymalna dopuszczalna waga
+
+    n = len(V)  # n - liczba przedmiotów
+
+    F = [[None for k in range(n)] for w in range( max_weight+1 )]
+    # F[w][k] - służy do zapamiętania wyniku recur(w,k)
+    # F[w][k] - maksywalna wartość przedmiotów z przedziału od 0 do k, wykorzystując dokłanie w wagi
+    # F[w][k] == None znaczy, że to pierwszy raz kiedy program wywołuje funkcje recur(w,k)
+    # F[w][k] == -1 znaczy, że NIE da się osiągnąć wagi w korzystając z przedmiotów z przedziału od 0 do k
+
+    F[0][0] = 0                 # nie bierzemy pierwszego przedmiotu
+    if W[0] <= max_weight:      # edge case - sprawdzamy czy pierwszy przedmiot nie waży wiecej niż dopuszczalna waga
+        F[W[0]][0] = V[0]       # bierzemy pierwszy przedmiot
+
+    def recur(w,k):
+        if w < 0:               # waga zawsze musi wynosić przynajmniej 0
+            return -1
+        if F[w][k] is not None: # zwracamy zapamiętane, obliczone wcześniej rozwiązanie
+            return F[w][k]
+        if k==0:                # warunek brzegowy rekurecji - zauważ że wywołanie tego if'a oznacza, że poprzedni if się nie
+            F[w][k] = -1        # wykonał, więc NIE da się osiągnąć wagi w korzystając tylko z przedmiotu o indeksie 0
+            return F[w][k]
+        F[w][k] = max( recur(w,k-1) ,               # nie bierzemy k-tego przedmiotu
+                       recur(w-W[k],k-1) + V[k] )   # bierzemy k-ty przedmiot
+        return F[w][k]
+
+    # odczytanie rozwiązania
+    ans = 0
+    for w in range(max_weight+1):
+        ans = max( ans , recur(w,n-1) )
+    return ans
+
+# przykładowy test - oczekiwana wartość: 28
+V = [10, 8, 4, 5, 3, 7]
+W = [4, 5, 12, 9, 1, 13]
+max_weight = 24
+print(knapsack_recursive(V, W, max_weight))
+
+# przykładowy test - oczekiwana wartość: 10
+V = [3,4,5,6]
+W = [2,3,4,5]
+max_weight = 8
+print(knapsack(V, W, max_weight))
