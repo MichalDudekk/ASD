@@ -2,6 +2,7 @@
 # Mając pręt o długości n cali oraz tabelę cen T[i] dla i = [1, 2, ..., n].
 # Określ maksymalny przychód r[n], który można uzyskać przez pocięcie pręta i sprzedaż
 # poszczególnych kawałków.
+# Opis algorytmu na dole.
 
 # bottom up
 def rod_cutting(T):
