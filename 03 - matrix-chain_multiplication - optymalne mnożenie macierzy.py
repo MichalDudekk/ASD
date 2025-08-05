@@ -43,7 +43,8 @@ def matrix_order_bottom_up(p):
 
     return F[0][n-1]
 
-p = [30, 35, 15, 5, 10, 20, 25] # 15125
+# Przykładowy test - oczekiwana wartość: 15125
+p = [30, 35, 15, 5, 10, 20, 25]
 print(matrix_order(p))
 print(matrix_order_bottom_up(p))
 
@@ -55,4 +56,5 @@ print(matrix_order_bottom_up(p))
 # Dla każdego przedziału <w,k> wybieramy takie i, które zapewnia najmniejszą ilość mnożeń.
 # Liczba unikalnych podproblemów recur(w,k) wynosi O(n^2)
 # Rozwiązanie każdego z nich wymaga sprawdzenia wszystkich możliwych punktów podziału i między w a k, co daje O(n) operacji
+
 # Z tego wynika, że złożoność to O(n^3)
