@@ -39,5 +39,4 @@ print(binary_strings(n))
 
 # Ciekawostka - binary_strings_discrete(n) - O(1)
 # Za pomocą znanej i LUBIANEJ matematyki dyskretnej można wyprowadzić nierekurencyjny wzór na n-ty wyraz ciągu,
-
 # przez co algorytm ma złożoność O(1).
