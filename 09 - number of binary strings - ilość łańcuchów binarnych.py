@@ -1,6 +1,6 @@
 # 09 - number of binary strings - ilość łańcuchów binarnych
 # Dla dodatniej liczby całkowitej n, oblicz liczbę różnych ciągów binarnych (0/1)
-# długości n, w których nie występują dwa jedynki obok siebie (brak kolejnych '11').
+# długości n, w których nie występują dwie jedynki obok siebie (brak kolejnych '11').
 # Opis algorytmu na dole.
 
 # bottom up - O(n)
@@ -39,4 +39,5 @@ print(binary_strings(n))
 
 # Ciekawostka - binary_strings_discrete(n) - O(1)
 # Za pomocą znanej i LUBIANEJ matematyki dyskretnej można wyprowadzić nierekurencyjny wzór na n-ty wyraz ciągu,
+
 # przez co algorytm ma złożoność O(1).
