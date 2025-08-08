@@ -39,13 +39,12 @@ def subset_sum_dp(T,target):
 
 # Ciekawostka - algorytm z użyciem masek bitowych - O(n)
 def subset_sum_bitmask(T, target):
-    def subset_sum(T, target):
-        mask = 1  # Reprezentuje sumę 0
-        for num in T:
-            mask |= (mask << num)       # Przesuwamy maskę o num bitów w lewo i wykonujemy OR
-            if (mask >> target) & 1:    # Sprawdzamy czy target jest osiągalny
-                return True
-        return False
+    mask = 1  # Reprezentuje sumę 0
+    for num in T:
+        mask |= (mask << num)       # Przesuwamy maskę o num bitów w lewo i wykonujemy OR
+        if (mask >> target) & 1:    # Sprawdzamy czy target jest osiągalny
+            return True
+    return False
 
 
 D = [14, 5, 19, 3, 20, 14, 12, 7, 1]
@@ -69,4 +68,5 @@ print(subset_sum_bitmask(D, summary))
 # F[s] - czy da się osiągnąć sumę s
 # Dla każdej liczby T[i] iterujemy od tyłu po potencjalnie możliwych sumach <T[i],target>,
 # musimy iterować od tyłu, bo inaczej T[i] mogłoby zostać użyte kilka razy.
+
 # Jeśli suma (sub_sum - T[i]) jest możliwa do uzyskania to suma (sub_sum), również jest możliwa.
