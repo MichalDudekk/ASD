@@ -6,6 +6,7 @@
 # Szerokość reprezentacji to długość najkrótszego stringa s[i] w tej reprezentacji.
 # Algorytm ma znaleźć maksymalną możliwą szerokość reprezentacji t
 # (czyli taką, gdzie najkrótszy string w reprezentacji jest najdłuższy).
+# Opis algorytmu na dole
 
 def sequence(S,t):
     n = len(t)
@@ -42,3 +43,10 @@ print(sequence(S,t))
 S = ['a', 'aa', 'aaa', 'aaaa']
 t = 'a'*16
 print(sequence(S,t))
+
+# Opis algorytmu - sequence(S,t) - O(len(t)^2)
+# F[k] - maksymalna szerokość reprezentacji napisu t[0:k+1]
+# Słownik words przechowuje wszystkie słowa z tablicy S, co zapewnia dostęp do nich w czasie stałym O(1).
+# Każde k-te wywołanie pętli to próba podziału słowa t[0:k+1] - czyli ciągu znaków złożonego z liter od zerowej do k-tej słowa t.
+# Ciąg t[0:k+1] albo jest słowem ze słownika words i wtedy F[k] = k+1 albo nie jest słowem ze słownika words,
+# wtedy sprawdzamy wszystkie możliwe podziały słowa t[0:k+1] na dwa, korzystając z wartości w tablicy F obliczonych wcześniej.
