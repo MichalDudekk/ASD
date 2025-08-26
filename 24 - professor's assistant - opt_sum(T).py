@@ -9,6 +9,7 @@
 # największą wartość bezwzględną wyniku pośredniego przy optymalnej kolejności dodawania.
 # Na przykład dla tablicy: [1, -5, 2] funkcja powinna zwrócić 3, co odpowiada dodaniu -5 i 2,
 # a następnie dodaniu 1 do wyniku.
+# Opis algorytmu na dole
 from math import inf
 
 def opt_sum(T):
@@ -51,3 +52,16 @@ print(opt_sum(T))
 # Przykładowy test - oczekiwana wartość: 98
 T = [1,1,-100,1,1]
 print(opt_sum(T))
+
+# Opis algorytmu - opt_sum(T) - O(n^2)
+# recur(w,k) - minimalna, największa wartość bezwzględna wyniku pośredniego dodawań przedziału <w,k>
+# Tablica S zawiera sumy częściowe, gdzie S[i] to suma liczb z przedziału <0,i>. Pozwala to
+# na dostęp do sumy dowolnego przedziału <w,k> w czasie stałym O(1). Suma przedziału <w,k> wynosi S[k] - S[w-1].
+# Uwaga: jeśli nasze w wynosi 0 to S[w-1] przeskoczy na S[-1]. Czyli ostatni indeks w tablicy.
+# Aby to naprawić możemy albo wy-ifowac przypadek kiedy w == 0 i wtedy suma to poprostu S[k],
+# lub dodać do tablicy S zero na ostatnim indeksie. Wtedy S[-1] == 0 i nie ma problemu.
+# Warunki brzegowe rekurencji:
+# Wartość funkcji recur dla jednoelementowego przedziału (w==k) to zawsze 0. Wartość funkcji
+# recur dla przedziału dwuelementowego (k==w+1) to zawsze wartość bezwzględna ich sumy.
+# Jeśli przedział ma więcej niż 2 elementy to sprawdzamy każdy możliwy podział i wybieramy
+# ten który zwraca minimalną wartość.
