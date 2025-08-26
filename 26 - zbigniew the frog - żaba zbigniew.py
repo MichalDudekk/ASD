@@ -6,6 +6,7 @@
 # Zaimplementuj funkcję zbigniew(A), która otrzymuje na wejściu tablicę A o długości len(A) = n, gdzie
 # każde pole zawiera wartość energetyczną przekąski leżącej na odpowiadającej liczbie. Funkcja powinna
 # zwrócić minimalną liczbę skoków potrzebnych Zbigniewowi do przejścia od 0 do n-1 lub zwrócić -1, jeśli to niemożliwe.
+# Opis algorytmu na dole
 from math import inf
 
 def zbigniew(A):
@@ -43,3 +44,12 @@ print(zbigniew(A))
 # Przykładowy test - oczekiwana wartość: -1
 A = [4,0,0,0,0,0]
 print(zbigniew(A))
+
+# Opis algorytmu - zbigniew(A) - O(n^2 * sum(A))
+# F[w][k] - minimalna ilość skoków, aby znaleźć się na k-tym polu mając dokładnie w energii.
+# Przechodzimy po każdym wierszu w w każdej kolumnie k. Jeśli F[w][k] == inf to nie da się
+# dotrzeć na k-te pole mając dokładnie w energii, więc nie ma sensu rozważać potencjalnych
+# skoków z tego miejsca.
+# Jeśli F[w][k] != inf to rozważamy wszystkie możliwe skoki z pola k. Będzie to w możliwość
+# o ile k+w < n inaczej mamy nawet więcej energii niż jest potrzebne aby dotrzeć na ostatnie pole.
+# Rozwiązanie odczytujemy biorąc najniższą wartość z ostatniej kolumny tablicy F.
