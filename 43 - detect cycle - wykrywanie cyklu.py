@@ -1,5 +1,6 @@
 # 43 - detect cycle - wykrywanie cyklu
 # Sprawdź czy w grafie nieskierowanym istnieje cykl.
+# Opis algorytmu na dole
 
 def detect_cycle(G):
     n = len(G)
@@ -29,3 +30,8 @@ print(detect_cycle(G))
 # graf nie ma cyklu
 G = [[1, 2, 5], [0, 3], [0, 4, 7, 8], [1], [2, 6], [0], [4], [2], [2]]
 print(detect_cycle(G))
+
+# Opis algorytmu - detect_cycle(G) - O(V+E)
+# Wykonujemy dfs na grafie G. W dfs_visit(v,parent) przekazujemy dodatkowy argument parent oznaczający
+# wierzchołek, z którego wywołaliśmy dfs_visit dla wierzchołka v. Jeżeli wśród sąsiadów v istnieje już
+# odwiedzony wierzchołek, który nie jest wierzchołkiem zapisanym w parent to znaczy, że graf ma cykl.
