@@ -4,6 +4,7 @@
 # wstawienie spacji w taki sposób, aby otrzymane słowa należały do zadanego języka.
 # Przykład: "alamakotainiemapsa" można podzielić na "ala ma kota i nie ma psa".
 # Algorytm powinien być szybki, ale najważniejsze jest, aby był poprawny.
+# Opis algorytmu na dole
 
 # absolutnie przykładowa funkcja dict
 def dict(word):
@@ -32,3 +33,11 @@ print(correct_word(s))
 # Przykładowy test - oczekiwana wartość: False
 s = "alamakotainiemapsax"
 print(correct_word(s))
+
+# Opis algorytmu - correct_word(s) - O(len(s)^2)
+# F[k] - czy można podzielić słowo s[0:k+1]
+# Algorytm zupełnie analogiczny do rozwiązania zadania 25 - sequence of strings - ciag napisów.
+# Każde k-te wywołanie pętli to próba podziału słowa s[0:k+1] - czyli ciągu znaków złożonego z liter
+# od zerowej do k-tej słowa s. Ciąg s[0:k+1] albo jest poprawnym słowem i wtedy F[k] = k+1 albo nie
+# jest poprawnym słowem, wtedy sprawdzamy wszystkie możliwe podziały słowa s[0:k+1] na dwa,
+# korzystając z wartości w tablicy F obliczonych wcześniej.
