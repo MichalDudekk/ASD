@@ -3,6 +3,7 @@
 # osoba 0 przekazuje wiadomość wszystkim swoim znajomym. Drugiego dnia każdy znajomy przekazuje
 # wiadomość swoim znajomym, którzy jej jeszcze nie znają, itd. Znajdź algorytm, który zwróci dzień,
 # w którym najwięcej osób dowiedziało się wiadomości oraz liczbę osób, które otrzymały ją tego dnia.
+# Opis algorytmu na dole
 
 from collections import deque
 
@@ -40,3 +41,11 @@ def message(G,s):
 G = [[1, 2], [0, 3, 4], [0, 5, 6], [1, 10], [1, 5, 7, 8, 7, 9, 11],
          [2, 4, 6], [2, 5], [4], [4], [4], [3], [4]]
 print(message(G, 0))
+
+# Opis algorytmu - message(G, 0) - O(V+E)
+# Osoby to wierzchołki grafu, każda z nich ma krawędź tylko do swoich znajomych.
+# days[i] - ile osób dowiedziało się wiadomości i-tego dnia.
+# Wykonujemy algorytm bfs, do kolejki wrzucamy dodatkową wartość time czyli liczbę oznaczającą
+# w której z kolei "fali" bfs'a odkryty został wierzchołek. Wartość time to właśnie dzień
+# w którym osoba v dowiaduje się o wiadomości. Następnie zwiększamy days[time] o jeden.
+# Na koniec wybieramy dzień w którym days[i] było największe.
