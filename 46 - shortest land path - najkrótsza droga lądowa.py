@@ -4,6 +4,7 @@
 # Zakładając, że tablica[0][0] i tablica[n-1][n-1] to ląd. Sprawdź, czy można przejść
 # z [0][0] do [n-1][n-1] drogą lądową. Można poruszać się tylko w bok, nie po przekątnej.
 # Znajdź również długość najkrótszej ścieżki między tymi komórkami.
+# Opis algorytmu na dole
 
 from math import inf
 from collections import deque
@@ -50,3 +51,10 @@ G = [["L", "W", "L", "L", "L", "L", "L", "L"],
      ["W", "W", "L", "W", "L", "L", "W", "L"],
      ["L", "L", "L", "L", "L", "L", "L", "L"]]
 print(land_path(G))
+
+# Opis algorytmu - land_path(G) - O(n^2)
+# Wykonujemy algorytm bfs. W tablicy visited pola na których jest woda od początku ustawiamy na True,
+# przez co nie będziemy rozważać ścieżek prowadzących przez nie.
+# Dla każdego wywołania pętli możemy poruszyć się we wszystkie cztery strony, jeśli nie pola nie są visited.
+# Zwracamy d[n-1][n-1] oznaczające najkrótszą ścieżkę pomiędzy polem (0,0) a (n-1,n-1).
+# Jeśli nie ma takiej ścieżki lądem to algorytm zwróci inf.
