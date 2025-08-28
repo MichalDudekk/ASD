@@ -2,6 +2,7 @@
 # Dany jest zbiór przedziałów [ai, bi]. Dwa przedziały mogą być połączone, jeśli mają
 # dokładnie jeden wspólny punkt. Znajdź algorytm, który sprawdza, czy można uzyskać
 # przedział [a, b] poprzez łączenie tych przedziałów.
+# Opis algorytmu na dole
 
 def ranges(T,a,b):
     n = max(t[1] for t in T) + 1
@@ -32,3 +33,8 @@ T = [[1, 3], [2, 3], [4, 5], [5, 7], [0, 6], [6, 7], [0, 2], [3, 4], [8, 9]]
 a = 5
 b = 9
 print(ranges(T,a,b))
+
+# Opis algorytmu - ranges(T,a,b) - O(V+E)
+# Tworzymy graf - wierzchołkami są początki i końce przedziałów, a krawędzie to przedziały łączące je.
+# Interesuje nas czy istnieje ścieżka z a do b. W tym celu odpalamy dfs_visit() z wierzchołka a.
+# Jeśli visited[b] == True to znaczy, że można uzyskać przedział [a,b].
