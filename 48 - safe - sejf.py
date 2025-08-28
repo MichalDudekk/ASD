@@ -7,6 +7,7 @@
 # jest obcinana. Znamy kod PIN i liczby, które są aktualnie wyświetlane. Znajdź
 # najkrótszą sekwencję naciśnięć przycisków, która pozwoli odblokować sejf. Jeśli taka
 # sekwencja nie istnieje, zwróć None.
+# Opis algorytmu na dole.
 
 from collections import deque
 from math import inf
@@ -61,3 +62,12 @@ PIN = 7384
 buttons = [13, 223, 782, 3902, 500]
 print(safe(buttons, display, PIN))
 
+# Opis algorytmu - safe(buttons, display, PIN) - O(len(buttons))
+# Na początku przygotowujemy graf. Wierzchołkami są wszystkie liczby z przedziału (0-9999). Każdy wierzchołek
+# ma dokładnie tyle krawędzi ile jest przycisków w buttons. Dla każdego wierzchołka obliczamy do jakich innych
+# wierzchołków dostaniemy się klikając w przyciski z tablicy buttons i dodajemy do nich krawędź.
+# Po stworzeniu grafu wystarczy puścić zwykłego bfs-a z wierzchołka startowego display, który obliczy najkrótszą drogę do wierzchołka końcowego PIN.
+# Na koniec, aby odtworzyć wynik, przechodzimy po "drzewie" stworzonym przez tablice patent, aż nie dojdziemy do wierzchołka startowego display.
+# Złożoność obliczeniowa to O(len(buttons)), bo liczba wierzchołków jest ograniczona przez stałą 10000 co daje złożoność
+# stałą O(1), jednak przez to, że liczba przycisków nie jest w żaden sposób ograniczona to złożoność jest zależna właśnie od niej O(len(buttons)).
+# Gdyby liczba wierzchołków nie była ograniczona przez 10000 tylko przez n, to złożoność wynosiłaby O(n + n*len(buttons)) - złożoność algorytmu bfs.
