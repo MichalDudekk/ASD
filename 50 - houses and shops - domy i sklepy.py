@@ -2,6 +2,7 @@
 # Mamy mapę miasta, na której znajdują się domy i sklepy. Są też drogi (każda o długości 1),
 # które łączą dom z domem lub dom ze sklepem. Musimy znaleźć dla każdego domu odległość
 # do najbliższego sklepu.
+# Opis algorytmu na dole.
 
 from math import inf
 from collections import deque
@@ -47,3 +48,9 @@ roads = [[0, 1], [0, 2], [0, 3], [1, 3], [1, 4], [1, 5], [2, 5], [2, 6], [2, 7],
          [4, 8], [4, 5], [5, 7], [6, 7], [8, 9], [9, 10], [9, 11], [10, 13], [11, 12], [12, 13]]
 shops = [2, 3, 9]
 print(houses_and_shops(roads, shops))
+
+# Opis algorytmu - houses_and_shops(roads, shops) - O(V+E)
+# Zamieniamy listę krawędzi E na listę sąsiedztwa G.
+# Odpalamy na grafie G algorytm bfs z jedną modyfikacją, na początku ustawiamy odległość
+# w tablicy d na 0 dla każdego wierzchołka, których jest sklepem. Następnie dodajemy wszystkie
+# sklepy do kolejki. Przez to ścieżki tworzą się od każdego ze sklepów.
