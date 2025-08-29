@@ -7,6 +7,7 @@
 # ścieżki, żeby dotrzeć do osady krasnoludów. Który z korytarzy powinien zostać
 # wysadzony w powietrze, żeby odciąć jak największej ilości trolli dostęp do osady krasnoludów.
 # Podaj krawędź, która powinna zostać wysadzona i liczbę trolli, którą uda się wtedy odciąć.
+# Opis algorytmu na dole.
 
 from math import inf
 
@@ -77,3 +78,20 @@ graph = [[1, 2, 3, 4], [0, 2, 5, 6], [0, 1, 3], [0, 2], [0, 9, 10], [1, 7, 8],
 trolls = [0, 2, 8, 7, 17, 4, 13, 3, 12, 3, 1, 11]
 village = 0
 print(dwarves_and_trolls(graph, trolls, village))
+
+# Opis algorytmu - dwarves_and_trolls(graph, trolls, village) - O(E(V+E))
+# Na początku za pomocą funkcji find_bridges(G,village) (algorytmu z wykładu) znajdujemy wszystkie krawędzie będące
+# mostami w grafie G. Warte zaznaczenia jest to że szukamy mostów zaczynając od wierzchołka startowego village,
+# przez co w każdej parze (v,u) będącej mostem to wierzchołek v będzie bliżej pola village niż wierzchołek u.
+# Później okaże się to bardzo pomocne w dalszej implementacji.
+# Następnie dla każdego znalezionego mostu wywołujemy funkcje how_many_trolls(s,parent), która zlicza ilu trollom
+# odetniemy dostęp do wioski jeśli pozbędziemy się mostu (parent,s).
+# W parze (parent,s):
+#  - parent - wierzchołek który znajduje się bliżej wioski (nie zostanie odcięty)
+#  - s - wierzchołek który znajduje się dalej od wioski (zostanie odcięty)
+# Polega to na ustawieniu visited[parent] na True czyli visited wierzchołka który znajduje się bliżej wioski
+# (nie zostanie odcięty po wysadzeniu mostu) a następnie wywołaniu dfs_visit(s) z wierzchołka KTÓRY ZNAJDUJE
+# SIE DALEJ OD WIOSKI. W ten sposób nigdy nie przejdziemy przez wierzchołek parent, więc nie policzymy nadmiarowych trolli.
+# Przechodząc dfs'em sumujemy liczbę znalezionych trolli i zwracamy wynik.
+# Na koniec wybieramy most którego wysadzenie zwróciło najwyższy wynik.
+# Złożoność O(E(V+E)) bo potencjalnie każda krawędź może być mostem a wtedy wywołamy E razy dfs_visit, które jest O(V+E).
