@@ -2,6 +2,7 @@
 # Dana jest lista krawędzi drzewa (niekoniecznie binarnego) oraz wyróżniony wierzchołek - korzeń.
 # Każdy wierzchołek tworzy swoje własne poddrzewo. Dla każdego wierzchołka, znajdź liczbę
 # wierzchołków w jego poddrzewie.
+# Opis algorytmu na dole.
 
 def subtree_sizes(E,s):
     def edges_to_graph(E):
@@ -36,3 +37,12 @@ def subtree_sizes(E,s):
 E = [[0, 1], [0, 2], [1, 3], [2, 4], [2, 5], [2, 6], [3, 7], [3, 8], [3, 9], [4, 10], [5, 11], [5, 12], [7, 13],
          [7, 14], [8, 15], [9, 16], [9, 17], [11, 18], [11, 19], [11, 20], [12, 21]]
 print(subtree_sizes(E,0))
+
+# Opis algorytmu - subtree_sizes(E,0) - O(V+E)
+# Zamieniamy listę krawędzi E w listę sąsiedztwa G. 
+# Tworzymy tablicę sizes dla każdego wierzchołka i wypełniamy ją zerami.
+# (Ciekawostka jak to piszę to właśnie ląduje w Krakowie po locie z Aten - wakacje z ASD to życie)
+# Następnie wykonujemy dfs_visit(s) z korzenia i rekurencyjnie dla każdego wierzchołka v do sizes[v] dodajemy
+# rozmiar każdego poddrzewa czyli sizes każdego wierzchołka połączone z v, na koniec kiedy skończą się krawędzie
+# zwiększamy jeszcze wartość w sizes o 1 (doliczamy aktualny wierzchołek).
+# Zauważ, że w ten sposób liście naszego drzewa będą mieć rozmiar 1 i to zapewni warunek końcowy rekurencji.
