@@ -3,6 +3,7 @@
 # graf. Dana jest lista K miast, do których musimy dostarczyć paczki i mając możliwość
 # rozpoczęcia i zakończenia trasy w dowolnym mieście, znajdź minimalną odległość, którą
 # musimy pokonać, aby dostarczyć wszystkie paczki.
+# Opis algorytmu na dole.
 
 def diameter(G):
     n = len(G)
@@ -53,3 +54,11 @@ def delivery(G):
 G = [[1], [0, 2], [1, 3, 4], [2, 6], [2, 5], [4], [3, 7, 8], [6], [6, 9, 10, 11],
          [8], [8], [8, 12, 16], [11, 13, 14], [12, 15], [12], [13], [11, 17, 18], [16], [16]]
 print(delivery(G))
+
+# Opis algorytmu - delivery(G) - O(V+E)
+# Z polecenia wynika, że graf G jest drzewem. 
+# Gdybyśmy mieli zacząć i zakończyć w tym samym wierzchołku, to zadanie byłoby banalne.
+# Wystarczyłoby odpalić algorytm dfs i dodawać 1 do wyniku za każdym razem, gdy odwiedzamy
+# nowy wierzchołek u oraz za każdym razem gdy z niego wracamy (dfs_visit(u) zakończy się).
+# Jako, że mamy możliwość zacząć i zakończyć w dowolnych dwóch wierzchołkach to należy wybrać dwa najbardziej od siebie oddalone, w ten sposób zaoszczędzimy najwięcej drogi.
+# Algorytm realizuje to przez odjęcie od wyniku średnicy grafu G, czyli długości ścieżki między dwoma najbardziej oddalonymi wierzchołkami.
