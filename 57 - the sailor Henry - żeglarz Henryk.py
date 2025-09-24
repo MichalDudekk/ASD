@@ -8,6 +8,7 @@
 # następny dzień. Henryk zawsze musi nocować na jakiejś wyspie. Znajdź minimalną liczbę
 # dni, której Henryk potrzebuje, aby dotrzeć do swojej docelowej wyspy (lub stwierdź,
 # że jest to niemożliwe).
+# Opis algorytmu na dole.
 
 from math import sqrt, inf
 from collections import deque
@@ -67,3 +68,11 @@ W = [(-9.83, 7.32), (-7.12, 0.73), (-5.01, 6.81), (-2.35, 6.83), (0.23, 7.11), (
      (-6.03, 3.43), (-3.42, -1.21), (-1.96, 2.97), (2.58, 0.21), (4.12, 4.23), (10.12, 7.57), (8.02, 1.12)]
 Z = 5
 print(sailor_henry(W, Z))
+
+# Opis algorytmu - sailor_henry(W, Z) - O(V+E)
+# Cała trudność zadania polega na przygotowaniu grafu.
+# Odległości między wierzchołkami to liczba dni potrzebna na przebycie dystansu:
+#  1) 1 jeśli dist <= Z
+#  2) 2 jeśli dist <= 2*Z
+# W ten sposób jeśli Henryk chce przepłynąć odległość <= Z to zużywa jednen dzień, natomiast jeśli chce przepłynąć odległość <= 2*Z to zużywa dwa dni.
+# Na przygotowanym grafie wystarczy odpalić algorytm delayed_bfs (bo wagi są liczbami naturalnymi ograniczonymi z góry przez 2) lub algorytm dijkstry, jednak wtedy złożoność jest gorsza O(E*log(V))
