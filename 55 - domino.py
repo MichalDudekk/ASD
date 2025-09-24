@@ -2,6 +2,7 @@
 # Mamy układ domino. Mamy go jako listę par [a, b]. Jeśli przewrócimy klocek a, klocek
 # b również się przewróci. Znajdź minimalną liczbę klocków, które należy przewrócić ręcznie,
 # tak aby wszystkie domino upadły.
+# Opis algorytmu na dole.
 
 from math import inf
 
@@ -53,3 +54,10 @@ E = [[0, 1], [1, 2], [3, 2], [2, 4], [4, 1], [4, 5], [5, 6], [6, 7], [7, 8], [8,
      [4, 7], [4, 6], [5, 9], [10, 0], [15, 14], [15, 11], [15, 11], [11, 13], [14, 13], [5, 13],
      [16, 8], [0, 12], [12, 3]]
 print(domino(E))
+
+# Opis algorytmu - domino(E) - O(V+E)
+# Odpalamy algorytm odpowiedzialny za znajdywanie silnie spójnych składowych.
+# Funkcja zwróci nam tablice indeksów w odwrotnej kolejności co do przetworzenia wierzchołków.
+# Wynik tej funkcji zapisujemy w tablicy order.
+# Następnie wywołujemy algorytm dfs. Przechodząc pętlą w kolejności zapisanej w tablicy order (ta pętla na dole funkcji dfs).
+# Ilość razy kiedy ręcznie wywołaliśmy dfs_visit to wynik naszego algorytmu - ctr.
